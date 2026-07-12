@@ -1,0 +1,28 @@
+[package]
+name = "tseries"
+version = "0.1.0"
+edition = "2021"
+description = "Fast time series analysis CLI — statistics, anomaly detection, forecasting, seasonality, and ASCII visualization"
+license = "MIT"
+authors = ["EdgarOrtegaRamirez"]
+keywords = ["time-series", "statistics", "anomaly", "forecasting", "cli"]
+categories = ["command-line-utilities", "science"]
+
+[[bin]]
+name = "tseries"
+path = "src/main.rs"
+
+[lib]
+name = "tseries"
+path = "src/lib.rs"
+
+[dependencies]
+clap = { version = "4.5", features = ["derive"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+chrono = { version = "0.4", features = ["serde"] }
+
+[dev-dependencies]
+assert_cmd = "2.0"
+predicates = "3.1"
+tempfile = "3.10"
