@@ -93,8 +93,7 @@ impl TimeSeries {
 
     /// Sort points by parsed timestamp (best-effort: numeric or ISO-8601).
     pub fn sort_by_timestamp(&mut self) {
-        self.points
-            .sort_by(|a, b| parse_ts_key(&a.timestamp).cmp(&parse_ts_key(&b.timestamp)));
+        self.points.sort_by_key(|a| parse_ts_key(&a.timestamp));
     }
 
     /// Minimum value.

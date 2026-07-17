@@ -129,7 +129,11 @@ pub fn decompose(series: &TimeSeries, window: usize) -> Option<Decomposition> {
         return None;
     }
 
-    let w = if window % 2 == 0 { window + 1 } else { window }; // odd window for centering
+    let w = if window.is_multiple_of(2) {
+        window + 1
+    } else {
+        window
+    }; // odd window for centering
     let half = w / 2;
     let n = values.len();
 

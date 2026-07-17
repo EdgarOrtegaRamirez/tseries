@@ -61,7 +61,7 @@ pub fn detect_seasonality(series: &TimeSeries) -> SeasonalityResult {
     }
 
     // Use at most n/3 lags to avoid unreliable estimates
-    let max_lag = (n / 3).max(2).min(50);
+    let max_lag = (n / 3).clamp(2, 50);
     let acf = autocorrelation(&values, max_lag);
 
     // Find the lag with the highest ACF (excluding lag 0)
@@ -75,7 +75,7 @@ pub fn detect_seasonality(series: &TimeSeries) -> SeasonalityResult {
     }
 
     // Strength: ACF value at the detected period (0.0 to 1.0)
-    let strength = max_acf.max(0.0).min(1.0);
+    let strength = max_acf.clamp(0.0, 1.0);
 
     // Only report a period if the ACF is above a threshold
     let period = if strength > 0.3 { Some(max_lag) } else { None };

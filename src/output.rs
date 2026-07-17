@@ -174,7 +174,7 @@ pub fn format_forecast(forecast: &Forecast, format: OutputFormat) -> String {
         }
         OutputFormat::Json => serde_json::to_string_pretty(forecast).unwrap_or_default(),
         OutputFormat::Csv => {
-            let mut s = format!("step,prediction\n");
+            let mut s = "step,prediction\n".to_string();
             for (i, p) in forecast.predictions.iter().enumerate() {
                 s.push_str(&format!("t+{},{:.6}\n", i + 1, p));
             }

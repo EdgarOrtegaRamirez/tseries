@@ -58,9 +58,7 @@ pub fn line_chart(values: &[f64], height: usize, width: usize) -> String {
         grid[row][col] = '●';
 
         // Draw vertical line from bottom to the point
-        for r in (row + 1)..height {
-            grid[r][col] = '│';
-        }
+        grid[(row + 1)..].iter_mut().for_each(|r| r[col] = '│');
     }
 
     let mut output = String::new();
@@ -155,15 +153,15 @@ pub fn box_plot(values: &[f64]) -> String {
     let mut line = vec![' '; width + 1];
 
     // Whiskers
-    for i in min_pos..=max_pos {
-        if i <= width {
-            line[i] = '─';
+    for (i, cell) in line.iter_mut().enumerate() {
+        if i >= min_pos && i <= max_pos {
+            *cell = '─';
         }
     }
     // Box (Q1 to Q3)
-    for i in q1_pos..=q3_pos {
-        if i <= width {
-            line[i] = '█';
+    for (i, cell) in line.iter_mut().enumerate() {
+        if i >= q1_pos && i <= q3_pos {
+            *cell = '█';
         }
     }
     // Median marker
